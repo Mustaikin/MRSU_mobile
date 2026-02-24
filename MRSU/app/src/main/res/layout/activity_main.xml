@@ -12,11 +12,12 @@
 
     <ImageView
         android:layout_width="150dp"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:layout_gravity="center"
         android:layout_marginBottom="-150dp"
         android:layout_marginTop="125dp"
         android:src="@drawable/emblem_mrsu" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,9 +26,8 @@
         android:fontFamily="@font/inter_bold"
         android:textColor="#000000"
         android:textSize="25sp"
-        android:text= "@string/Авторизация"
-        android:textStyle="bold"
-        />
+        android:text="Авторизация"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/user_login"
@@ -39,8 +39,7 @@
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:textColor="#000000"
-        android:hint = "Введите логин"
-        />
+        android:hint="Введите логин" />
 
     <EditText
         android:id="@+id/user_password"
@@ -51,15 +50,25 @@
         android:textColorHint="#6A6A6A"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:hint = "Введите пароль"
+        android:hint="Введите пароль"
+        android:textColor="#000000" />
+
+    <!-- CheckBox "Сохранить вход" -->
+    <CheckBox
+        android:id="@+id/saveLoginCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="Сохранить вход"
         android:textColor="#000000"
-        />
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/login_button"
         android:layout_width="220dp"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
         android:text="Войти" />
 

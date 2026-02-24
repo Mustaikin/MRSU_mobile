@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.mrsu.network.service.OkHttpApiService
 import com.example.mrsu.storage.TokenStorage
+import com.example.mrsu.storage.UserPreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -61,14 +62,20 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         logoutButton.setOnClickListener {
-            // Очищаем токен
-            TokenStorage.accessToken = null
+            logoutButton.setOnClickListener {
+                // Очищаем сохраненные данные
+                val userPreferences = UserPreferences(this)
+                userPreferences.clear()
 
-            // Переходим на экран входа
-            val intent = Intent(this, LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            finish()
+                // Очищаем токен
+                TokenStorage.accessToken = null
+
+                // Переходим на экран входа
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                finish()
+            }
         }
     }
 
