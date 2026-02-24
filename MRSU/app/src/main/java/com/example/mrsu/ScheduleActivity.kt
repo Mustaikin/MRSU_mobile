@@ -1,5 +1,6 @@
 package com.example.mrsu
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -48,6 +49,7 @@ class ScheduleActivity : AppCompatActivity() {
     private lateinit var selectedCalendar: Calendar
     private var currentSubgroup: Int = 0 // 0 - все подгруппы, 1 - подгруппа 1, 2 - подгруппа 2
     private var scheduleData: List<ScheduleResponse> = listOf()
+    private lateinit var profileButton: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +64,14 @@ class ScheduleActivity : AppCompatActivity() {
         setupSubgroupButtons()
         setupCalendar()
         loadScheduleForDate(Date())
+
+        profileButton = findViewById(R.id.profileButton)
+
+        profileButton.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun setupSubgroupButtons() {

@@ -2,6 +2,7 @@ package com.example.mrsu.network.service
 
 import com.example.mrsu.network.impl.ApiService
 import com.example.mrsu.network.model.AuthResponse
+import com.example.mrsu.network.model.ProfileResponse
 import com.example.mrsu.network.model.ScheduleResponse
 import com.example.mrsu.storage.TokenStorage
 import okhttp3.*
@@ -18,7 +19,7 @@ class OkHttpApiService : ApiService {
 
     private val client: OkHttpClient
     private val gson: Gson
-    private val baseUrl = "https://p.mrsu.ru/"
+    private val baseUrl = "https://p.mrsu.ru"
 
     init {
         val loggingInterceptor = HttpLoggingInterceptor().apply {
@@ -100,6 +101,31 @@ class OkHttpApiService : ApiService {
 
                 val listType = object : TypeToken<List<ScheduleResponse>>() {}.type
                 gson.fromJson<List<ScheduleResponse>>(responseBody, listType)
+            }
+        } catch (e: Exception) {
+            throw IOException("Ошибка сети: ${e.message}", e)
+        }
+    }
+
+    override suspend fun getProfile(authorization: String): ProfileResponse = withContext(Dispatchers.IO) {
+        val request = Request.Builder()
+            .url("https://papi.mrsu.ru/v1/User")
+            .get()
+            .addHeader("Authorization", authorization)
+            .addHeader("Accept", "application/json")
+            .build()
+
+        try {
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) {
+                    val errorBody = response.body?.string()
+                    throw IOException("Ошибка HTTP ${response.code}: $errorBody")
+                }
+
+                val responseBody = response.body?.string()
+                    ?: throw IOException("Пустой ответ от сервера")
+
+                gson.fromJson(responseBody, ProfileResponse::class.java)
             }
         } catch (e: Exception) {
             throw IOException("Ошибка сети: ${e.message}", e)

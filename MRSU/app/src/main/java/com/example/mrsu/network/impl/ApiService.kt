@@ -1,6 +1,7 @@
 package com.example.mrsu.network.impl
 
 import com.example.mrsu.network.model.AuthResponse
+import com.example.mrsu.network.model.ProfileResponse
 import com.example.mrsu.network.model.ScheduleResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -26,5 +27,10 @@ interface ApiService {
         @Header("Authorization") authorization: String,
         @Query("date") date: String
     ): List<ScheduleResponse>
+
+    @GET("v1/User")
+    suspend fun getProfile(
+        @Header("Authorization") authorization: String
+    ): ProfileResponse
 }
 
