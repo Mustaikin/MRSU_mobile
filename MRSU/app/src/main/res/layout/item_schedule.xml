@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/schedule_bg"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <!-- Время -->
+    <TextView
+        android:id="@+id/lessonTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="09:00 - 10:30"
+        android:textColor="#6200EE"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <!-- Название предмета -->
+    <TextView
+        android:id="@+id/lessonName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Математический анализ"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Подгруппа (ЭТОТ ID НУЖЕН!) -->
+    <TextView
+        android:id="@+id/lessonSubgroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:background="#E8F0FE"
+        android:paddingHorizontal="6dp"
+        android:paddingVertical="2dp"
+        android:text="Подгруппа 1"
+        android:textColor="#6200EE"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <!-- Преподаватель и аудитория -->
+    <TextView
+        android:id="@+id/lessonDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="Иванов И.И. • ауд. 301"
+        android:textColor="#666666"
+        android:textSize="14sp" />
+
+</LinearLayout>

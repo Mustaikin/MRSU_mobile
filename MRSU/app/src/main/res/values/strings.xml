@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MRSU</string>
+    <string name="Авторизация">Авторизация</string>
+    <string name="calendar_scroll_description">Горизонтальный календарь. Проведите пальцем влево или вправо, чтобы выбрать другой день</string>
+</resources>

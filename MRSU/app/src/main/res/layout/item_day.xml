@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dayLayout"
+    android:layout_width="70dp"
+    android:layout_height="90dp"
+    android:layout_marginEnd="8dp"
+    android:background="@drawable/day_bg"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/dayWeek"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ПН"
+        android:textColor="#666666"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/dayNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="25"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/dayMonth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="мар"
+        android:textColor="#666666"
+        android:textSize="10sp" />
+</LinearLayout>

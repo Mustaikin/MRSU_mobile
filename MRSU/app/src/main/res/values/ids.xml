@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="lesson_title" type="id" />
+    <item name="lesson_teacher" type="id" />
+    <item name="lesson_auditorium" type="id" />
+</resources>
