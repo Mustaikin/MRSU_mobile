@@ -34,7 +34,7 @@
             android:tint="#FFFFFF" />
     </LinearLayout>
 
-
+    <!-- Дни недели (горизонтальная прокрутка) -->
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -92,13 +92,28 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Список пар -->
+    <!-- Список пар - используем wrap_content и ограничиваем вес -->
     <ListView
         android:id="@+id/scheduleListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:divider="@null"
         android:dividerHeight="0dp"
-        android:padding="16dp" />
+        android:padding="16dp"
+        android:paddingBottom="0dp" />
+
+    <!-- Кнопка внизу экрана -->
+    <Button
+        android:id="@+id/progressButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginTop="0dp"
+        android:backgroundTint="#6200EE"
+        android:text="Моя успеваемость"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
 </LinearLayout>

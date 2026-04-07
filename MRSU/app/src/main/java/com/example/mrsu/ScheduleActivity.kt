@@ -32,6 +32,7 @@ class ScheduleActivity : AppCompatActivity() {
     private val monthFormat = SimpleDateFormat("MMM", Locale.getDefault())
     private val fullDateFormat = SimpleDateFormat("EEEE, d MMMM", Locale.getDefault())
     private val apiDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    private lateinit var progressButton: Button
 
     // Все возможные пары с 1 по 8
     private val lessonTimes = mapOf(
@@ -50,6 +51,7 @@ class ScheduleActivity : AppCompatActivity() {
     private var currentSubgroup: Int = 0 // 0 - все подгруппы, 1 - подгруппа 1, 2 - подгруппа 2
     private var scheduleData: List<ScheduleResponse> = listOf()
     private lateinit var profileButton: ImageButton
+    private var studentCode: String = "" // Добавляем переменную для хранения кода студента
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,18 +62,48 @@ class ScheduleActivity : AppCompatActivity() {
         scheduleListView = findViewById(R.id.scheduleListView)
         subgroup1Button = findViewById(R.id.subgroup1Button)
         subgroup2Button = findViewById(R.id.subgroup2Button)
+        profileButton = findViewById(R.id.profileButton)
+        progressButton = findViewById(R.id.progressButton) // Находим кнопку
 
         setupSubgroupButtons()
         setupCalendar()
         loadScheduleForDate(Date())
-
-        profileButton = findViewById(R.id.profileButton)
+        loadStudentProfile() // Загружаем профиль для получения studentCod
 
         profileButton.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
 
+        progressButton.setOnClickListener {
+            if (studentCode.isNotEmpty()) {
+                val intent = Intent(this, ProgressActivity::class.java)
+                intent.putExtra("studentId", studentCode)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Загрузка данных студента...", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun loadStudentProfile() {
+        lifecycleScope.launch {
+            try {
+                val token = TokenStorage.accessToken
+                if (token.isNullOrEmpty()) {
+                    return@launch
+                }
+
+                val profile = withContext(Dispatchers.IO) {
+                    apiService.getProfile("Bearer $token")
+                }
+
+                studentCode = profile.studentCod
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     private fun setupSubgroupButtons() {

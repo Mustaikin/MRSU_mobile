@@ -52,5 +52,4 @@
         android:text="Иванов И.И. • ауд. 301"
         android:textColor="#666666"
         android:textSize="14sp" />
-
 </LinearLayout>

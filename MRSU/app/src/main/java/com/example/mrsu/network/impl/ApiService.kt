@@ -1,14 +1,7 @@
 package com.example.mrsu.network.impl
 
-import com.example.mrsu.network.model.AuthResponse
-import com.example.mrsu.network.model.ProfileResponse
-import com.example.mrsu.network.model.ScheduleResponse
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST// описывает возможности API
-import retrofit2.http.Query
+import com.example.mrsu.network.model.*
+import retrofit2.http.*
 
 interface ApiService {
 
@@ -32,5 +25,16 @@ interface ApiService {
     suspend fun getProfile(
         @Header("Authorization") authorization: String
     ): ProfileResponse
-}
 
+    @GET("v1/StudentSemester")
+    suspend fun getStudentSemester(
+        @Header("Authorization") authorization: String,
+        @Query("selector") selector: String = "current"
+    ): StudentSemesterResponse
+
+    @GET("v1/StudentRatingPlan/{disciplineId}")
+    suspend fun getDisciplineRatingPlan(
+        @Header("Authorization") authorization: String,
+        @Path("disciplineId") disciplineId: Int
+    ): DisciplineRatingPlanResponse
+}

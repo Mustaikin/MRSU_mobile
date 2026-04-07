@@ -2,9 +2,10 @@ package com.example.mrsu.network.service
 
 import com.example.mrsu.network.impl.ApiService
 import com.example.mrsu.network.model.AuthResponse
+import com.example.mrsu.network.model.DisciplineRatingPlanResponse
 import com.example.mrsu.network.model.ProfileResponse
 import com.example.mrsu.network.model.ScheduleResponse
-import com.example.mrsu.storage.TokenStorage
+import com.example.mrsu.network.model.StudentSemesterResponse
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import com.google.gson.Gson
@@ -126,6 +127,64 @@ class OkHttpApiService : ApiService {
                     ?: throw IOException("Пустой ответ от сервера")
 
                 gson.fromJson(responseBody, ProfileResponse::class.java)
+            }
+        } catch (e: Exception) {
+            throw IOException("Ошибка сети: ${e.message}", e)
+        }
+    }
+
+    override suspend fun getStudentSemester(
+        authorization: String,
+        selector: String
+    ): StudentSemesterResponse = withContext(Dispatchers.IO) {
+        val request = Request.Builder()
+            .url("https://papi.mrsu.ru/v1/StudentSemester?selector=$selector")
+            .get()
+            .addHeader("Authorization", authorization)
+            .addHeader("Accept", "application/json")
+            .build()
+
+        try {
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) {
+                    val errorBody = response.body?.string()
+                    throw IOException("Ошибка HTTP ${response.code}: $errorBody")
+                }
+
+                val responseBody = response.body?.string()
+                    ?: throw IOException("Пустой ответ от сервера")
+
+                android.util.Log.d("API_DEBUG", "StudentSemester response: $responseBody")
+                gson.fromJson(responseBody, StudentSemesterResponse::class.java)
+            }
+        } catch (e: Exception) {
+            throw IOException("Ошибка сети: ${e.message}", e)
+        }
+    }
+
+    override suspend fun getDisciplineRatingPlan(
+        authorization: String,
+        disciplineId: Int
+    ): DisciplineRatingPlanResponse = withContext(Dispatchers.IO) {
+        val request = Request.Builder()
+            .url("https://papi.mrsu.ru/v1/StudentRatingPlan/$disciplineId")
+            .get()
+            .addHeader("Authorization", authorization)
+            .addHeader("Accept", "application/json")
+            .build()
+
+        try {
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) {
+                    val errorBody = response.body?.string()
+                    throw IOException("Ошибка HTTP ${response.code}: $errorBody")
+                }
+
+                val responseBody = response.body?.string()
+                    ?: throw IOException("Пустой ответ от сервера")
+
+                android.util.Log.d("API_DEBUG", "RatingPlan for discipline $disciplineId: $responseBody")
+                gson.fromJson(responseBody, DisciplineRatingPlanResponse::class.java)
             }
         } catch (e: Exception) {
             throw IOException("Ошибка сети: ${e.message}", e)
